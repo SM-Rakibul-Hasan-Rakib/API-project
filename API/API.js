@@ -1,4 +1,4 @@
-const loadPhone = async (searchText, isShowAll) => {
+const loadPhone = async (searchText = "13", isShowAll) => {
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
@@ -10,7 +10,7 @@ const loadPhone = async (searchText, isShowAll) => {
 };
 
 const displayPhones = (phones, isShowAll) => {
-  console.log(phones);
+  // console.log(phones);
 
   const phoneContainer = document.getElementById("phone-container");
   // /clear phone container before phone card
@@ -23,14 +23,14 @@ const displayPhones = (phones, isShowAll) => {
     showAllContainer.classList.add("hidden");
   }
 
-  console.log("is show all", isShowAll);
+  // console.log("is show all", isShowAll);
   // display first 10 phone
   if (!isShowAll) {
     phones = phones.slice(0, 12);
   }
 
   phones.forEach((phone) => {
-    console.log(phone);
+    // console.log(phone);
     //2: create a div
     const phoneCard = document.createElement("div");
     phoneCard.classList = `card w-96  p-5 bg-gray-100 shadow-xl`;
@@ -55,12 +55,40 @@ const displayPhones = (phones, isShowAll) => {
 
 //  handleShow
 const handleShowDetail = async (id) => {
-  console.log("Clicked show details", id);
+  // console.log("Clicked show details", id);
   // load single phone data
   const res = await fetch(
-    `https://openapi.programming-hero.com/api/phone/${id}`);
-    const data = await res.json();
-    console.log(data);
+    `https://openapi.programming-hero.com/api/phone/${id}`
+  );
+  const data = await res.json();
+  const phone = data.data;
+
+  showPhoneDetails(phone);
+  // display
+};
+const showPhoneDetails = (phone) => {
+  console.log(phone);
+
+  const phoneName = document.getElementById("show-detail-phone-name");
+  phoneName.innerText = phone.name;
+  // show the modal
+  const showDetailContainer = document.getElementById("show-detail-container");
+
+  showDetailContainer.innerHTML = `
+  <img src ="${phone.image}" />
+  <p><span>Brand: </span>${phone.brand}</p>
+  <p><span>Storage:</span>${phone?.mainFeatures?.storage}</p>
+  <p><span>GPS:</span>${phone?.others.GPS}</p>
+  <p><span>Chipset:</span>${phone?.mainFeatures?.chipSet}</p>
+  <p><span>Display size: </span>${phone?.mainFeatures.displaySize}</p>
+  <p><span>Memory: </span>${phone?.mainFeatures?.memory}</p>
+  
+  <p><span>Replace data</span>${phone?.
+    releaseDate}</p>
+  <p><span>Slug: </span>${phone?.slug}</p>
+  `;
+
+  show_details_modal.showModal();
 };
 
 // handle search button
@@ -94,4 +122,4 @@ const handleShowAll = () => {
   handleSearch(true);
   // isShowAll();
 };
-// loadPhone();
+loadPhone();
