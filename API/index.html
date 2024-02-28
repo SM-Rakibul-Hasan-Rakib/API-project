@@ -14,19 +14,28 @@
   <header>
     <h2 class="text-6xl">HUnting phone</h2>
   </header>
-  <main>
-   <div id="phone-container">
+  <main class="container mx-auto mt-8 bg-slate-800">
+   
+    <section class="bg-gray-100 p-4 m-4">
+      <input id="search-field" type="text" placeholder="search..." class="input input-bordered input-primary w-full max-w-xs" />
+      <button onclick="handleSearch()" class="btn btn-accent">Accent</button>
+    </section>
+   
+    <!-- search-input -->
+ <section>
+  <div id="phone-container" class="grid grid-cols-1 md:grid-cols-2 mt-5 lg:grid-cols-3 gap-8">
     <div class="card w-96 bg-gray-100 shadow-xl">
-      <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+      <!-- <figure><img src="" alt="Shoes" /></figure>
       <div class="card-body">
         <h2 class="card-title">Shoes!</h2>
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div class="card-actions justify-end">
           <button class="btn btn-primary">Buy Now</button>
         </div>
-      </div>
+      </div> -->
     </div>
    </div>
+ </section>
   </main>
   <footer>
 

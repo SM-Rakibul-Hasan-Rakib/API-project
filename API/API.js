@@ -1,37 +1,48 @@
-const loadPhone = async () => {
+const loadPhone = async (searchText) => {
   const res = await fetch(
-    "https://openapi.programming-hero.com/api/phones?search=iphone"
+    `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
+
   const data = await res.json();
   const phones = data.data;
-  // console.log(phones);
+  console.log(phones);
   displayPhones(phones);
 };
 
 const displayPhones = (phones) => {
-  // console.log(phones);
-   
-  const phoneContainer = document.getElementById('phone-container');
+  console.log(phones);
+
+  const phoneContainer = document.getElementById("phone-container");
+  // /clear phone container before phone card
+  phoneContainer.textContent = '';
 
   phones.forEach((phone) => {
     console.log(phone);
     //2: create a div
-    const phoneCard = document.getElementById("div");
-    phoneCard.classList = `card w-96 bg-gray-100 shadow-xl`;
+    const phoneCard = document.createElement("div");
+    phoneCard.classList = `card w-96  p-5 bg-gray-100 shadow-xl`;
     // 3: set inner html
     phoneCard.innerHTML = `
-    <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+    <figure><img src="${phone.image}" alt="Shoes" /></figure>
     <div class="card-body">
-      <h2 class="card-title">Shoes!</h2>
+      <h2 class="card-title">${phone.phone_name}</h2>
       <p>If a dog chews shoes whose shoes does he choose?</p>
       <div class="card-actions justify-end">
         <button class="btn btn-primary">Buy Now</button>
       </div>
     </div>
     `;
-    // 4:append-child 
+    // 4:append-child
     phoneContainer.appendChild(phoneCard);
   });
 };
 
-loadPhone();
+// handle search button
+const handleSearch = () => {
+  const searchField = document.getElementById('search-field');
+  const searchText = searchField.value;
+  console.log(searchText);
+  loadPhone(searchText);
+};
+
+// loadPhone();
